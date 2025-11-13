@@ -1,0 +1,12 @@
+              precision    recall  f1-score   support
+
+        foam     0.8571    0.9000    0.8780        20
+        hard     0.9922    0.9549    0.9732       532
+        line     0.9126    0.9895    0.9495        95
+       noise     0.9375    0.9783    0.9574        46
+      pellet     0.8116    0.9333    0.8682        60
+   reference     1.0000    1.0000    1.0000         8
+
+    accuracy                         0.9580       761
+   macro avg     0.9185    0.9593    0.9377       761
+weighted avg     0.9612    0.9580    0.9588       761
