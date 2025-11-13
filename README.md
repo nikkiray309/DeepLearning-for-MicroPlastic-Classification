@@ -1,6 +1,7 @@
 # DeepLearning-for-MicroPlastic-Classification
 
 A comprehensive comparative study on classifying microplastic particles using Classic Machine Learning models, Convolutional Neural Networks (CNNs), and Vision Transformers (ViTs). This project provides a full pipeline from data extraction and preprocessing to model training, evaluation, and interpretation.
+Dataset can be found at: https://figshare.com/articles/dataset/DeepParticle_dataset_MICRO_MESO_MACRO_2022_/26511253
 
 ## Key Features
 
