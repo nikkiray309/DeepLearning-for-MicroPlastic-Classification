@@ -46,7 +46,7 @@ class MicroParticleDataset(Dataset):
 test_ds = MicroParticleDataset(Path(PROCESSED_DIR)/"test", transform=None)
 classes = test_ds.classes
 # ================================
-# 3. Load VGG16 Model
+# 3. Load VGG16 Model  / Resnet-50 Model based on the requirement
 # ================================
 from torchvision import models
 num_classes = len(test_ds.classes)
@@ -71,16 +71,14 @@ class GradCAM:
         self._register_hooks()
 
     def _register_hooks(self):
-        # !! REMOVE .detach() HERE !!
+        
         def forward_hook(module, input, output):
             self.activations = output
             
-        # !! REMOVE .detach() AND USE register_backward_hook HERE !!
         def backward_hook(module, grad_input, grad_output):
             self.gradients = grad_output[0]
 
         self.target_layer.register_forward_hook(forward_hook)
-        # Using register_backward_hook for better compatibility with VGG feature layers
         self.target_layer.register_backward_hook(backward_hook)
 
     def generate(self, input_tensor, class_idx=None):
@@ -102,7 +100,7 @@ class GradCAM:
         if self.gradients is None:
             raise RuntimeError("Gradients not captured. Check hook registration!")
 
-        # The rest of the logic remains the same
+        
         weights = self.gradients.mean(dim=(2,3), keepdim=True)
         # We need the activations to be detached for the final calculation
         cam = (weights * self.activations.detach()).sum(dim=1, keepdim=True)
@@ -154,4 +152,5 @@ for i, idx in enumerate(indices):
     plt.tight_layout()
     plt.savefig(save_path, dpi=150)
     plt.close()
+
     print(f"Saved labeled side-by-side comparison: {save_path}")
